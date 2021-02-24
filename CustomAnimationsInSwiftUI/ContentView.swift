@@ -33,6 +33,7 @@ struct ContentView: View {
   
   @State private var isShowingRed = false
   
+  @State var selected = false
   var body: some View {
     VStack {
       
@@ -77,6 +78,16 @@ struct ContentView: View {
           .transition(.asymmetric(insertion: .scale, removal: .opacity))
 //          .transition(.pivot)
       }
+      
+      // MARK: - Shake Animation
+      Button(action: {
+          self.selected.toggle()
+      }) { selected ? Text("Deselect") : Text("Select") }
+      Rectangle()
+          .fill(Color.purple)
+          .frame(width: 200, height: 200)
+          .offset(x: selected ? -30 : 0)
+          .animation(Animation.default.repeatCount(5).speed(6))
     }
   }
 }
